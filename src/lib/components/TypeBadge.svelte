@@ -26,11 +26,11 @@
 
 {#if variant === 'minimal'}
 	{#if !type}
-		<div class="flex h-9 w-[calc(36px+10ch)] items-center justify-center rounded-lg bg-secondary">
+		<div class="flex h-9 w-[calc(36px+10ch)] items-center justify-center rounded-lg bg-popover">
 			<div class="font-bold uppercase">none</div>
 		</div>
 	{:else}
-		<div class="grid grid-cols-[36px_10ch] place-items-center rounded-lg bg-secondary uppercase">
+		<div class="grid grid-cols-[36px_10ch] place-items-center rounded-lg bg-popover uppercase">
 			<div class="rounded-s-lg {typeBgColor[type.name]}">
 				<img
 					src={type.iconUrl}
