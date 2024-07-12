@@ -24,6 +24,7 @@
 		src={currentForm.defaultImageUrl}
 		alt={'An image of the pokemon ' + currentForm.displayName}
 		class="size-[475px] justify-self-end"
+		style="view-transition-name: {currentForm.displayName}-img;"
 	/>
 	<div class="grid w-full grid-cols-2 gap-8 justify-self-start">
 		<div class="grid gap-2">

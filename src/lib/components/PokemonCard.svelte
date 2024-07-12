@@ -38,6 +38,7 @@
 				alt="Imagem foda"
 				class="w-60 object-cover transition-transform duration-300 group-hover:scale-[1.2]"
 				loading="lazy"
+				style="view-transition-name: {pokemon.name}-img;"
 			/>
 		</Card.Header>
 		<div class="mb-4 flex w-full items-center justify-center gap-4">
@@ -47,8 +48,8 @@
 			{/if}
 		</div>
 		<Card.Content>
-			<Card.Title class="text-xl capitalize">{pokemon.name}</Card.Title>
-			<Card.Description class="italic">#{pokemon.pokedexNumber.toString().padStart(4, '0')}</Card.Description>
+			<Card.Title class="text-xl capitalize" style="view-transition-name: {pokemon.name}-title;">{pokemon.name}</Card.Title>
+			<Card.Description class="italic" style="view-transition-name: {pokemon.name}-number;">#{pokemon.pokedexNumber.toString().padStart(4, '0')}</Card.Description>
 		</Card.Content>
 	</Card.Root>
 </a>

@@ -28,8 +28,8 @@
 
 <section class="grid place-items-center">
 	<div class="flex items-center gap-5">
-		<p class="text-7xl italic text-foreground/20">#{speciesData.pokedexNumber.toString().padStart(4, '0')}</p>
-		<h1 class="text-8xl font-bold capitalize">{defaultForm.displayName}</h1>
+		<p class="text-7xl italic text-foreground/20" style="view-transition-name: {defaultForm.displayName}-number;">#{speciesData.pokedexNumber.toString().padStart(4, '0')}</p>
+		<h1 class="text-8xl font-bold capitalize" style="view-transition-name: {defaultForm.displayName}-title;">{defaultForm.displayName}</h1>
 	</div>
 	<p class="text-2xl capitalize">The {speciesData.category}</p>
 </section>

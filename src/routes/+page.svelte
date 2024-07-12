@@ -61,10 +61,12 @@
 </svelte:head>
 
 {#await pokemonSpeciesListPromise}
-	<img
-		src="/loading.gif"
-		alt=""
-	/>
+	<div class="grid place-items-center">
+		<img
+			src="/loading.gif"
+			alt=""
+		/>
+	</div>
 {:then}
 	<div class="flex w-full justify-between">
 		<PokemonSearch
@@ -85,7 +87,7 @@
 	/>
 
 	{#if pokemonList.length > 0}
-		<div class="grid grid-cols-3 place-items-center gap-x-12 gap-y-8">
+		<div class="flex flex-wrap justify-center gap-8">
 			{#each allPokemonSpeciesList as pokemon}
 				<div class={pokemonList.includes(pokemon) ? '' : 'hidden'}>
 					<PokemonCard {pokemon} />

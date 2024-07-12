@@ -1,5 +1,18 @@
 <script>
 	import '../app.pcss';
+
+	import { onNavigate } from '$app/navigation';
+
+onNavigate((navigation) => {
+	if (!document.startViewTransition) return;
+
+	return new Promise((resolve) => {
+		document.startViewTransition(async () => {
+			resolve();
+			await navigation.complete;
+		});
+	});
+});
 </script>
 
 <div class="space-y-4 px-8 py-4">
@@ -14,6 +27,6 @@
 	</header>
 	<hr class="w-full" />
 </div>
-<main class="grid min-h-screen place-items-center gap-8 p-4">
+<main class="container space-y-12">
 	<slot></slot>
 </main>
