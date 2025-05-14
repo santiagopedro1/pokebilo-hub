@@ -8,6 +8,15 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	interface PokemonSpeciesListItem {
+		id: number;
+		name: string;
+		isLegendary: boolean | null;
+		isMythical: boolean | null;
+		type1: number;
+		type2: number | null;
+	}
 }
 
 export {};
