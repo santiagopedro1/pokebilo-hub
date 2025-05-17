@@ -1,72 +1,62 @@
-import { integer, real, text, sqliteTable, primaryKey } from 'drizzle-orm/sqlite-core';
+import { mysqlTable, int, double, text, boolean, primaryKey } from 'drizzle-orm/mysql-core';
 
 // Types Table
-export const types = sqliteTable('types', {
-	id: integer('id').primaryKey({ autoIncrement: true }),
-	name: text('name').notNull().unique()
+export const types = mysqlTable('types', {
+	id: int('id').primaryKey(),
+	name: text('name').notNull()
 });
 
 // Type Effectiveness Table (for type relations)
-export const typeEffectiveness = sqliteTable(
+export const typeEffectiveness = mysqlTable(
 	'type_effectiveness',
 	{
-		attackingTypeId: integer('attacking_type_id').references(() => types.id),
-		defendingTypeId: integer('defending_type_id').references(() => types.id),
-		effectiveness: real('effectiveness').notNull()
+		attackingTypeId: int('attacking_type_id').references(() => types.id),
+		defendingTypeId: int('defending_type_id').references(() => types.id),
+		effectiveness: double('effectiveness').notNull()
 	},
 	(table) => [primaryKey({ columns: [table.attackingTypeId, table.defendingTypeId] })]
 );
 
 // Species Table
-export const pokemonSpecies = sqliteTable('pokemon_species', {
-	id: integer('id').primaryKey({ autoIncrement: true }),
-	name: text('name').notNull().unique(),
-	category: text('category'),
-	isLegendary: integer('is_legendary', { mode: 'boolean' }),
-	isMythical: integer('is_mythical', { mode: 'boolean' })
+export const pokemonSpecies = mysqlTable('pokemon_species', {
+	id: int('id').primaryKey(),
+	name: text('name').notNull(),
+	category: text('category').notNull(),
+	isLegendary: boolean('is_legendary').notNull(),
+	isMythical: boolean('is_mythical').notNull()
 });
 
 // Pokémon Table (for different variants)
-export const pokemon = sqliteTable('pokemon', {
-	id: integer('id').primaryKey({ autoIncrement: true }),
-	speciesId: integer('species_id').references(() => pokemonSpecies.id),
+export const pokemon = mysqlTable('pokemon', {
+	id: int('id').primaryKey(),
+	speciesId: int('species_id').references(() => pokemonSpecies.id),
 	name: text('name').notNull(),
-	formName: text('form_name'),
-	isDefault: integer('is_default', { mode: 'boolean' }),
-	height: real('height'), // in meters
-	weight: real('weight'), // in kilograms
-	baseExperience: integer('base_experience')
+	formName: text('form_name').notNull(),
+	isDefault: boolean('is_default').notNull(),
+	height: double('height').notNull(),
+	weight: double('weight').notNull(),
+	baseExperience: int('base_experience').notNull()
 });
 
-// Form Types Relation Table (form can have different types than base)
-export const formTypes_relation = sqliteTable(
-	'form_types_relation',
+// Pokémon Types Table
+export const pokemonTypes = mysqlTable(
+	'pokemon_types',
 	{
-		formId: integer('form_id').references(() => pokemon.id),
-		typeId: integer('type_id').references(() => types.id)
+		pokemonId: int('pokemon_id').references(() => pokemon.id),
+		typeId: int('type_id').references(() => types.id)
 	},
-	(table) => [primaryKey({ columns: [table.formId, table.typeId] })]
-);
-
-// Species Type Relation Table (base types for the species)
-export const speciesTypes = sqliteTable(
-	'species_types',
-	{
-		speciesId: integer('species_id').references(() => pokemonSpecies.id),
-		typeId: integer('type_id').references(() => types.id)
-	},
-	(table) => [primaryKey({ columns: [table.speciesId, table.typeId] })]
+	(table) => [primaryKey({ columns: [table.pokemonId, table.typeId] })]
 );
 
 // Stats Table
-export const formStats = sqliteTable('form_stats', {
-	formId: integer('form_id')
-		.primaryKey()
-		.references(() => pokemon.id),
-	hp: integer('hp'),
-	attack: integer('attack'),
-	defense: integer('defense'),
-	specialAttack: integer('special_attack'),
-	specialDefense: integer('special_defense'),
-	speed: integer('speed')
-});
+export const pokemonStats = mysqlTable(
+	'pokemon_stats',
+	{
+		pokemonId: int('pokemon_id').references(() => pokemon.id),
+		statId: int('stat_id').notNull(),
+		statName: text('stat_name').notNull(),
+		baseStat: int('base_stat').notNull(),
+		effort: int('effort').notNull()
+	},
+	(table) => [primaryKey({ columns: [table.pokemonId, table.statId] })]
+);

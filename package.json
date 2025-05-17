@@ -42,7 +42,7 @@
 		"vite": "^6.3.4"
 	},
 	"dependencies": {
-		"@libsql/client": "^0.14.0",
-		"drizzle-orm": "^0.40.1"
+		"drizzle-orm": "^0.43.1",
+		"mysql2": "^3.14.1"
 	}
 }

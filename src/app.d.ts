@@ -14,8 +14,8 @@ declare global {
 		name: string;
 		isLegendary: boolean | null;
 		isMythical: boolean | null;
-		type1: number;
-		type2: number | null;
+		type1: string;
+		type2: string | null;
 	}
 }
 

@@ -1,10 +1,13 @@
-import { drizzle } from 'drizzle-orm/libsql';
-import { createClient } from '@libsql/client';
+import { drizzle } from 'drizzle-orm/mysql2';
+
 import * as schema from './schema';
 
-const client = createClient({
-	url: process.env.DATABASE_URL!
-});
+import { DATABASE_URL } from '$env/static/private';
 
-export const db = drizzle(client, { schema });
+if (!DATABASE_URL) {
+	throw new Error('DATABASE_URL is not defined');
+}
+
+export const db = drizzle(DATABASE_URL, { schema, mode: 'default' });
+
 export { schema };
